@@ -1,0 +1,50 @@
+﻿==================================================
+ Day 2 - Set 2: Insurance
+ Generated: 2026-11-01 05:57:18
+==================================================
+
+----- Task1_BST -----
+--- Task 1: Claim ID BST ---
+Claims inserted: 15
+Inorder   : [1187, 1560, 2098, 2650, 3245, 4321, 4685, 5402, 5874, 6719, 7038, 7456, 8121, 8830, 9903]
+Preorder  : [5402, 1187, 3245, 2098, 1560, 2650, 4321, 4685, 8830, 6719, 5874, 7456, 7038, 8121, 9903]
+Postorder : [1560, 2650, 2098, 4685, 4321, 3245, 1187, 5874, 7038, 8121, 7456, 6719, 9903, 8830, 5402]
+Search claim 7456: true
+Search claim 9999: false
+Inorder traversal gives claim IDs in ascending sorted order.
+
+----- Task2_Hashing -----
+--- Task 2: Duplicate / Near-Duplicate Claims ---
+Duplicate group POL1001|2026-10-01 -> [CLM-1001[POL-1001, 2026-10-01], CLM-1002[pol-1001, 2026-10-01], CLM-1003[ POL 1001 , 2026-10-01]]
+Duplicate group POL1003|2026-10-04 -> [CLM-1006[POL-1003, 2026-10-04], CLM-1007[pol 1003, 2026-10-04 ]]
+Duplicate groups detected: 2
+Empty input -> duplicate groups: 0
+Collisions are handled by HashMap chaining: equal normalized keys share a bucket chain,
+and equals() identifies the matching entry during look-up.
+
+----- Task3_Graph -----
+--- Task 3: Claim Approval Stage Graph ---
+registration -> [assessment]
+assessment -> [surveyor, settlement]
+surveyor -> [settlement]
+settlement -> [payment]
+payment -> [archive]
+archive -> []
+Shortest path registration -> settlement: [registration, assessment, settlement]
+Original graph has loop: false
+After adding archive -> assessment, loop detected: true
+
+----- Task4_SlidingWindow -----
+--- Task 4: Longest Run of Days with Claims > 100 ---
+Daily claims: [85, 120, 135, 150, 90, 160, 175, 190, 210, 80, 110, 105, 130, 140, 125, 95, 200, 220, 240, 260, 280, 300, 70, 115, 120, 130, 140, 150, 160, 170]
+Longest run: 7 consecutive days (Day 24 to Day 30)
+Claims in run: [115, 120, 130, 140, 150, 160, 170]
+Time complexity: O(n) single pass; space O(1).
+
+----- Task5_TwoPointers -----
+--- Task 5: Two-Pointer Merge of Sorted Claim Lists ---
+Northern office: [1012, 1045, 1103, 1288, 1450]
+Southern office: [1008, 1029, 1180, 1204, 1399, 1602]
+Merged         : [1008, 1012, 1029, 1045, 1103, 1180, 1204, 1288, 1399, 1450, 1602]
+Merged list is sorted: true
+Time complexity: O(n + m); space O(n + m) for the merged output.

@@ -1,0 +1,51 @@
+﻿==================================================
+ Day 1 - Set 2: Banking Transactions
+ Generated: 2026-11-01 05:57:13
+==================================================
+
+----- Task1_Search -----
+--- Task 1: Search Comparisons (n = 100,000) ---
+Binary Search -> Best: 1, Avg: 15.69, Worst: 17 comparisons
+Linear Search -> Best: 1, Avg: 50617.39, Worst: 100000 comparisons (sample of 500 targets)
+Theoretical linear average (n+1)/2 = 50001; binary worst-case cap = 17
+
+----- Task2_Sorting -----
+--- Task 2: Stable Sort by Posting Date ---
+Insertion Sort: [TX4@08:45(Deposit), TX1@09:00(Purchase), TX2@09:00(Refund), TX3@09:15(Transfer)]
+Stability Verified: Purchase remains before Refund -> true
+20,000 records -> Insertion Sort: 190.74 ms | Merge Sort: 7.13 ms
+Insertion Sort stable: true
+Merge Sort stable: true
+
+----- Task3_Duplicates -----
+ALERT: TX-80700 double-posted within 23 seconds (account=ACC-1370, amount=152.51, merchant=SHELL, first=01:15:36, second=01:15:59)
+ALERT: TX-88400 double-posted within 27 seconds (account=ACC-1442, amount=297.36, merchant=AMAZON, first=04:29:17, second=04:29:44)
+ALERT: TX-85600 double-posted within 16 seconds (account=ACC-1373, amount=595.10, merchant=AMAZON, first=05:55:39, second=05:55:55)
+ALERT: TX-82800 double-posted within 15 seconds (account=ACC-1117, amount=675.29, merchant=AMAZON, first=07:01:17, second=07:01:32)
+ALERT: TX-89100 double-posted within 26 seconds (account=ACC-1493, amount=477.51, merchant=AMAZON, first=07:18:51, second=07:19:17)
+ALERT: TX-86300 double-posted within 57 seconds (account=ACC-1327, amount=755.30, merchant=AMAZON, first=10:53:19, second=10:54:16)
+ALERT: TX-87700 double-posted within 22 seconds (account=ACC-1056, amount=304.42, merchant=SHELL, first=11:31:03, second=11:31:25)
+ALERT: TX-84200 double-posted within 3 seconds (account=ACC-1138, amount=820.19, merchant=AMAZON, first=11:55:18, second=11:55:21)
+ALERT: TX-81400 double-posted within 3 seconds (account=ACC-1008, amount=328.08, merchant=SHELL, first=15:27:40, second=15:27:43)
+ALERT: TX-87000 double-posted within 15 seconds (account=ACC-1340, amount=860.57, merchant=AMAZON, first=16:28:33, second=16:28:48)
+--- Task 3: 60-Second Window Duplicate Detection ---
+Transactions scanned: 10,000
+Double-post warnings: 14
+HashMap window scan time: 57.79 ms
+Time complexity: O(n log n) for the sort + O(n) scan; space O(n).
+
+----- Task4_StackQueue -----
+--- Task 4: Manual-Review Queue & Adjustment Stack ---
+Manual-review Queue: Reviewed CASE-201 (Fraud review) -> Reviewed CASE-202 (Limit increase) -> Reviewed CASE-203 (Chargeback)
+Adjustment Stack: Reversed 'Cashback +12.50', Reversed 'Interest Credit +4.20', Reversed 'Fee Reversal +25.00'
+Library Queue (ArrayDeque): Reviewed CASE-201 (Fraud review) -> Reviewed CASE-202 (Limit increase) -> Reviewed CASE-203 (Chargeback)
+Library Stack (ArrayDeque): Reversed 'Cashback +12.50', Reversed 'Interest Credit +4.20', Reversed 'Fee Reversal +25.00'
+200,000 operations -> Custom: 19.22 ms | ArrayDeque: 15.61 ms
+Both implementations provide O(1) amortized enqueue/dequeue and push/pop.
+
+----- Task5_MinMax -----
+--- Task 5: Min/Max Divide & Conquer vs Brute Force ---
+Divide & Conquer (Tournament) -> Min: $0.06, Max: $9999.99 | Total Comparisons: 149,998 | Time: 6.23 ms
+Brute Force      -> Min: $0.06, Max: $9999.99 | Total Comparisons: 199,998 | Time: 2.38 ms
+Same result: true
+Tournament comparison formula 3n/2 - 2 = 149,998

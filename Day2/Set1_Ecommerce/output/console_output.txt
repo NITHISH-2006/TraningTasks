@@ -1,0 +1,61 @@
+﻿==================================================
+ Day 2 - Set 1: E-Commerce
+ Generated: 2026-11-01 05:57:17
+==================================================
+
+----- Task1_BST -----
+--- Task 1: Product Category BST ---
+Categories inserted: 15
+Inorder   : [Appliances, Automotive, Beauty, Books, Electronics, Fashion, Furniture, Garden, Grocery, Home, Jewellery, Office, Pets, Sports, Toys]
+Preorder  : [Electronics, Books, Beauty, Automotive, Appliances, Fashion, Home, Grocery, Garden, Furniture, Sports, Jewellery, Pets, Office, Toys]
+Postorder : [Appliances, Automotive, Beauty, Books, Furniture, Garden, Grocery, Office, Pets, Jewellery, Toys, Sports, Home, Fashion, Electronics]
+Search 'Grocery': true
+Search 'Music'  : false
+Inorder traversal yields categories in sorted (alphabetical) order.
+
+----- Task2_HashTable -----
+--- Task 2: Collision Demonstration (capacity = 5) ---
+Bucket 0 (2 entries): [SKU-H, SKU-C]
+  Collision handled by chaining: [SKU-H, SKU-C]
+Bucket 1 (1 entries): [SKU-D]
+Bucket 2 (1 entries): [SKU-E]
+Bucket 3 (2 entries): [SKU-F, SKU-A]
+  Collision handled by chaining: [SKU-F, SKU-A]
+Bucket 4 (2 entries): [SKU-G, SKU-B]
+  Collision handled by chaining: [SKU-G, SKU-B]
+--- Task 2: Hash Table with Chaining ---
+100,000 SKU look-ups -> Custom chained table: 3.93 ms | java.util.HashMap: 3.25 ms
+Checksums match: true
+Expected O(1) average look-up with chaining; O(n) worst case if all keys collide.
+
+----- Task3_Graph -----
+--- Task 3: Microservice Dependency Graph ---
+frontend depends on [checkout, auth]
+checkout depends on [cart, pricing, payment]
+auth depends on []
+cart depends on [inventory]
+pricing depends on [inventory]
+payment depends on [inventory, auth]
+inventory depends on []
+notification depends on [checkout]
+Deployment order (DFS post-order): [inventory, cart, pricing, auth, payment, checkout, frontend, notification]
+Deployment order (BFS / Kahn)     : [auth, inventory, cart, pricing, payment, checkout, frontend, notification]
+Original graph has cycle: false
+After adding inventory -> checkout, cycle detected: true
+
+----- Task4_SlidingWindow -----
+--- Task 4: Busiest 3-Hour Traffic Window ---
+Hourly requests-per-minute profile: [622, 650, 639, 560, 492, 688, 457, 657, 439, 656, 650, 613, 490, 597, 646, 531, 639, 635, 1764, 1888, 1741, 1728, 452, 465]
+Busiest continuous 3-hour window: 18:00 - 21:00
+Window total requests: 5,393 | Average per hour: 1797.67
+Time complexity: O(n) with a sliding window; space O(1).
+
+----- Task5_TwoPointers -----
+--- Task 5: Two-Pointer Gift-Card Pairs ---
+Sorted order values: [150, 300, 450, 600, 750, 900, 1050, 1200]
+Gift-card value: 1200
+Pair found: 150 + 1050 = 1200
+Pair found: 300 + 900 = 1200
+Pair found: 450 + 750 = 1200
+Pairs found: 3
+Time complexity: O(n) after sorting; space O(1) excluding the output list.

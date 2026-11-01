@@ -1,0 +1,60 @@
+﻿==================================================
+ Day 1 - Set 1: Retail Order Desk
+ Generated: 2026-11-01 05:57:11
+==================================================
+
+----- Task1_Search -----
+--- Task 1: Search (50,000 records) ---
+Look-ups performed: 1,000
+Sample order found by ID 49165: index=49164, customerId=9246, amount=379.59
+1,000 Iterations -> Linear Search Time: 16.27 ms
+1,000 Iterations -> Binary Search Time: 0.41 ms
+Checksums (used to prevent dead-code elimination): 23111712 / 23111712
+Speed-up: 39.2x
+
+----- Task2_Sorting -----
+--- Task 2: Sort by Amount (Descending) ---
+Pass 1 Trace: [1200.0, 980.0, 450.0, 760.0, 300.0, 150.0]
+Pass 2 Trace: [1200.0, 980.0, 760.0, 450.0, 300.0, 150.0]
+Pass 3 Trace: [1200.0, 980.0, 760.0, 450.0, 300.0, 150.0]
+Trace sample after first three passes: [1200.0, 980.0, 760.0, 450.0, 300.0, 150.0]
+Execution -> Bubble Sort: 152.49 ms | Merge Sort: 4.36 ms | Built-in (TimSort): 9.56 ms
+Merge Sort output matches built-in sort: true
+Bubble Sort output matches built-in sort: true
+Top 3 amounts after sorting: [9999.7, 9998.7, 9998.6]
+
+----- Task3_Duplicates -----
+Alert: Duplicate Order detected for Customer 7271 (Amt: 1623.48) at 2026-10-29T12:55 [orderId=501]
+Alert: Duplicate Order detected for Customer 1516 (Amt: 1721.54) at 2026-10-29T16:04 [orderId=1001]
+Alert: Duplicate Order detected for Customer 9115 (Amt: 938.85) at 2026-10-29T11:15 [orderId=1501]
+Alert: Duplicate Order detected for Customer 5934 (Amt: 1417.98) at 2026-10-30T06:34 [orderId=2001]
+Alert: Duplicate Order detected for Customer 3454 (Amt: 579.85) at 2026-10-30T01:14 [orderId=2501]
+Alert: Duplicate Order detected for Customer 6304 (Amt: 1263.99) at 2026-10-29T17:18 [orderId=3001]
+Alert: Duplicate Order detected for Customer 6375 (Amt: 1599.40) at 2026-10-29T16:12 [orderId=3501]
+Alert: Duplicate Order detected for Customer 4215 (Amt: 934.36) at 2026-10-29T08:27 [orderId=4001]
+Alert: Duplicate Order detected for Customer 9112 (Amt: 504.52) at 2026-10-29T16:52 [orderId=4501]
+Alert: Duplicate Order detected for Customer 7115 (Amt: 519.93) at 2026-10-29T08:30 [orderId=5001]
+--- Task 3: Duplicate Order Detection ---
+Orders scanned: 50,000
+Duplicates blocked: 99
+HashSet scan time: 174.34 ms
+Time complexity: O(n) expected, O(n) space for the seen set.
+
+----- Task4_StackQueue -----
+--- Task 4: Stack & Queue ---
+Stack (Undo): Reverted 'Change Quantity', Reverted 'Address Change', Reverted 'Apply Promo'
+Queue (Dispatch): Order #101 Processed, Order #102 Processed, Order #103 Processed, Order #104 Processed, Order #105 Processed
+Library Stack (ArrayDeque): Reverted 'Change Quantity', Reverted 'Address Change', Reverted 'Apply Promo'
+Library Queue (ArrayDeque): Order #101 Processed, Order #102 Processed, Order #103 Processed, Order #104 Processed, Order #105 Processed
+200,000 push/pop + enqueue/dequeue -> Custom: 17.51 ms | ArrayDeque: 29.81 ms
+All custom and library operations are O(1) per operation.
+
+----- Task5_Refund -----
+--- Task 5: Refund (Greedy vs Dynamic Programming) ---
+Target 2788 (Coins: [2000, 500, 200, 100, 50, 20, 10, 5, 2, 1])
+  Greedy -> 9 coins (2000x1, 500x1, 200x1, 50x1, 20x1, 10x1, 5x1, 2x1, 1x1)
+  DP     -> 9 coins (2000x1, 500x1, 200x1, 50x1, 20x1, 10x1, 5x1, 2x1, 1x1)
+Target 6 (Coins: [4, 3, 1])
+  Greedy -> 3 coins (4x1, 1x2)
+  DP     -> 2 coins (3x2)
+  Greedy is NOT optimal for this denomination set; DP finds the minimum.

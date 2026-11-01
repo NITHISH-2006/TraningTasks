@@ -1,0 +1,51 @@
+﻿==================================================
+ Day 1 - Set 3: Hospital Appointments
+ Generated: 2026-11-01 05:57:15
+==================================================
+
+----- Task1_Search -----
+--- Task 1: Search 20,000 Patients ---
+Look-ups performed: 1,000
+Sample patient: ID=6221, name=Patient-6221, age=29
+1,000 Iterations -> Linear: 11.91 ms | Binary: 0.38 ms
+Checksums: 8959007 / 8959007
+Speed-up: 31.4x
+
+----- Task2_Sorting -----
+--- Task 2: Priority Sort (Urgency then Arrival) ---
+Sorted Queue (first 5): P15655(L1, 00:00) -> P10344(L1, 00:00) -> P16264(L1, 00:00) -> P16312(L1, 00:01) -> P1802(L1, 00:01)
+QuickSort: 78,216 Swaps (12.96 ms) | Selection Sort: 19,989 Swaps (393.43 ms)
+QuickSort result sorted: true
+Selection Sort result sorted: true
+
+----- Task3_Duplicates -----
+Slot 09:00 -> Patient 105: CONFIRMED
+Slot 09:00 -> Patient 105: REJECTED (Double Booking)
+Slot 09:30 -> Patient 105: CONFIRMED
+Slot 09:00 -> Patient 106: CONFIRMED
+Slot 10:00 -> Patient 107: CONFIRMED
+Slot 10:00 -> Patient 107: REJECTED (Double Booking)
+Slot 10:00 -> Patient 107: REJECTED (Double Booking)
+Slot 10:30 -> Patient 108: CONFIRMED
+Slot 11:00 -> Patient 109: CONFIRMED
+Slot 11:00 -> Patient 110: CONFIRMED
+--- Task 3: Booking Validation ---
+Bookings processed: 10 | Confirmed: 7 | Rejected: 3
+HashSet validation time: 10.0239 ms
+Time complexity: O(1) expected per booking; space O(number of slots).
+
+----- Task4_StackQueue -----
+--- Task 4: Walk-in Token Queue & Recent-Patients Stack ---
+Walk-in Queue: Token T-01 (Patient 201) -> Token T-02 (Patient 202) -> Token T-03 (Patient 203)
+Recent Patients (most recent first): Patient 203 (Neurology) -> Patient 202 (Orthopaedics) -> Patient 201 (Cardiology)
+Library Queue (ArrayDeque): Token T-01 (Patient 201) -> Token T-02 (Patient 202) -> Token T-03 (Patient 203)
+Library Stack (ArrayDeque): Patient 203 (Neurology) -> Patient 202 (Orthopaedics) -> Patient 201 (Cardiology)
+200,000 operations -> Custom: 14.14 ms | ArrayDeque: 12.13 ms
+Both implementations provide O(1) amortized operations.
+
+----- Task5_DP_Appointments -----
+--- Task 5: Shift Capacity (DP vs Greedy) ---
+Available overlapping slots: 10
+DP Algorithm scheduled Max 9 appointments: [[01:00-02:00] Short consult A, [02:00-03:00] Short consult B, [03:00-04:00] Short consult C, [04:00-05:00] Short consult D, [05:00-06:00] Short consult E, [06:00-07:00] Short consult F, [07:00-08:00] Short consult G, [10:00-11:00] Follow-up H, [11:00-12:00] Follow-up I]
+Greedy Algorithm (Earliest Start) scheduled only 3: [[00:00-10:00] Long ward round, [10:00-11:00] Follow-up H, [11:00-12:00] Follow-up I]
+Time complexity: O(n log n) sort + O(n log n) DP with binary search; space O(n).

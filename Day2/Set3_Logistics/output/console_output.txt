@@ -1,0 +1,59 @@
+﻿==================================================
+ Day 2 - Set 3: Logistics
+ Generated: 2026-11-01 05:57:20
+==================================================
+
+----- Task1_BST -----
+--- Task 1: Hub-Code BST ---
+Mixed insertion order : [HUB-DEL, HUB-BOM, HUB-BLR, HUB-MAA, HUB-HYD, HUB-CCU, HUB-PNQ, HUB-AMD, HUB-KOC, HUB-JAI]
+  Height (edges): 4 | Levels: 5
+  Inorder: [HUB-AMD, HUB-BLR, HUB-BOM, HUB-CCU, HUB-DEL, HUB-HYD, HUB-JAI, HUB-KOC, HUB-MAA, HUB-PNQ]
+  Search HUB-HYD: true | Search HUB-XXX: false
+Sorted insertion order: [HUB-AMD, HUB-BLR, HUB-BOM, HUB-CCU, HUB-DEL, HUB-HYD, HUB-JAI, HUB-KOC, HUB-MAA, HUB-PNQ]
+  Height (edges): 9 | Levels: 10
+Sorted input degenerates the BST into a linked list, so search becomes O(n).
+
+----- Task2_HashMap -----
+--- Task 2: Parcel Tracking HashMap ---
+TRK-1001 scanned at [HUB-DEL, HUB-JAI]
+TRK-1002 scanned at [HUB-BOM]
+TRK-1003 scanned at [HUB-MAA]
+TRK-1004 scanned at [HUB-CCU]
+Duplicate same-hub scans: 4
+  WARNING: TRK-1001 scanned twice at HUB-DEL
+  WARNING: TRK-1002 scanned twice at HUB-BOM
+  WARNING: TRK-1003 scanned twice at HUB-MAA
+  WARNING: TRK-1004 scanned twice at HUB-CCU
+Time complexity: O(number of scans) with O(1) average hash look-ups.
+
+----- Task3_Graph -----
+--- Task 3: Hub Network (Adjacency List) ---
+HUB-DEL -> [HUB-BOM, HUB-JAI, HUB-AMD]
+HUB-BOM -> [HUB-DEL, HUB-PNQ, HUB-BLR]
+HUB-JAI -> [HUB-DEL]
+HUB-AMD -> [HUB-DEL]
+HUB-PNQ -> [HUB-BOM]
+HUB-BLR -> [HUB-BOM, HUB-MAA, HUB-HYD]
+HUB-MAA -> [HUB-BLR, HUB-KOC]
+HUB-HYD -> [HUB-BLR, HUB-CCU]
+HUB-KOC -> [HUB-MAA]
+HUB-CCU -> [HUB-HYD]
+Fewest hops HUB-DEL -> HUB-CCU (4 hops): [HUB-DEL, HUB-BOM, HUB-BLR, HUB-HYD, HUB-CCU]
+Reachable from central depot HUB-DEL (DFS): [HUB-DEL, HUB-BOM, HUB-PNQ, HUB-BLR, HUB-MAA, HUB-KOC, HUB-HYD, HUB-CCU, HUB-JAI, HUB-AMD]
+Hubs reachable: 10 of 10
+
+----- Task4_SlidingWindow -----
+--- Task 4: Highest-Average 4-Hour Parcel Window ---
+Hourly parcel counts: [120, 95, 80, 70, 65, 90, 180, 310, 420, 380, 350, 330, 360, 390, 410, 450, 480, 520, 560, 500, 420, 300, 210, 160]
+Best 4-hour window: 16:00 - 20:00
+Window total parcels: 2,060 | Average per hour: 515.00
+Time complexity: O(n) sliding window; space O(1).
+
+----- Task5_TwoPointers -----
+--- Task 5: Palindrome Route Check (Two Pointers) ---
+"DEL-BOM-BLR-BOM-DEL" -> hub codes [DEL, BOM, BLR, BOM, DEL] -> palindrome: true
+"del bom blr bom del" -> hub codes [DEL, BOM, BLR, BOM, DEL] -> palindrome: true
+"DEL-BOM-BLR-DEL" -> hub codes [DEL, BOM, BLR, DEL] -> palindrome: false
+"DEL/BOM/BLR/BOM/DEL" -> hub codes [DEL, BOM, BLR, BOM, DEL] -> palindrome: true
+"HYD-CCU-HYD" -> hub codes [HYD, CCU, HYD] -> palindrome: true
+Time complexity: O(n) two-pointer scan over the hub-code tokens; space O(n) for the tokens.
