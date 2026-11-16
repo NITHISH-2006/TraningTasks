@@ -1,9 +1,8 @@
-# TraningTasks
+﻿# TraningTasks
 
-Hands-on problem-solving and data-structures lab work for the **Mavericks Segue 2026 - Java Foundation** track.
+Hands-on training assignments for the **Mavericks Segue 2026 - Java Foundation** track.
 
-The repository is organised by day and by business set. Every task has its own runnable Java file,
-captured console output and a short complexity/rationale note.
+Repository organised by day and by business set. Java tasks include runnable source, console output and complexity notes; database tasks include MySQL 8.4 scripts, normalisation/ER notes and query evidence.
 
 ## Structure
 
@@ -11,83 +10,82 @@ captured console output and a short complexity/rationale note.
 TraningTasks/
 ├── README.md
 ├── .gitignore
-│
-├── Day1/
+├── Day1/   # DSA basics: search, sort, duplicates, stack/queue, greedy/DP
+├── Day2/   # DSA: BST, hashing, graphs, sliding window, two pointers
+├── Day3/   # Agile & Scrum: roles, backlog, sprint plan, DoR/DoD
+├── Day4/   # Additional Java/practice tasks
+├── Day5/   # Databases & normalisation (MySQL 8.4)
 │   ├── README.md
-│   ├── notes/
-│   │   └── reference_solution.md
-│   │
-│   ├── Set1_RetailOrderDesk/
-│   │   ├── src/
-│   │   │   ├── Task1_Search.java
-│   │   │   ├── Task2_Sorting.java
-│   │   │   ├── Task3_Duplicates.java
-│   │   │   ├── Task4_StackQueue.java
-│   │   │   └── Task5_Refund.java
-│   │   ├── output/
-│   │   │   └── console_output.txt
-│   │   ├── notes/
-│   │   │   └── Complexity_Note.md
-│   │   └── README.md
-│   │
-│   ├── Set2_BankingTransactions/
-│   │   ├── src/ (Task1_Search ... Task5_MinMax)
-│   │   ├── output/console_output.txt
-│   │   ├── notes/Complexity_Note.md
-│   │   └── README.md
-│   │
-│   └── Set3_HospitalAppointments/
-│       ├── src/ (Task1_Search ... Task5_DP_Appointments)
-│       ├── output/console_output.txt
-│       ├── notes/Complexity_Note.md
-│       └── README.md
-│
-└── Day2/
+│   ├── Set1_RetailInventory/   (schema.sql, seed_data.sql, failing_inserts.sql, notes/, output/)
+│   ├── Set2_BankBranch/        (schema.sql, seed_data.sql, notes/, output/)
+│   └── Set3_HospitalRecords/   (schema.sql, seed_data.sql, notes/, output/)
+├── Day6/   # Functions, aggregation, GROUP BY/HAVING, joins (MySQL 8.4)
+│   ├── README.md
+│   ├── Set1_RetailSales/       (reports.sql, expected_output.md, notes/)
+│   ├── Set2_Insurance/         (reports.sql, expected_output.md, notes/)
+│   └── Set3_Telecom/           (reports.sql, expected_output.md, notes/)
+└── Day7/   # Joins & subqueries (MySQL 8.4)
     ├── README.md
-    │
-    ├── Set1_Ecommerce/
-    │   ├── src/ (Task1_BST, Task2_HashTable, Task3_Graph, Task4_SlidingWindow, Task5_TwoPointers)
-    │   ├── output/console_output.txt
-    │   ├── notes/Complexity_Note.md
-    │   └── README.md
-    │
-    ├── Set2_Insurance/
-    │   ├── src/ (Task1_BST, Task2_Hashing, Task3_Graph, Task4_SlidingWindow, Task5_TwoPointers)
-    │   ├── output/console_output.txt
-    │   ├── notes/Complexity_Note.md
-    │   └── README.md
-    │
-    └── Set3_Logistics/
-        ├── src/ (Task1_BST, Task2_HashMap, Task3_Graph, Task4_SlidingWindow, Task5_TwoPointers)
-        ├── output/console_output.txt
-        ├── notes/Complexity_Note.md
-        └── README.md
+    ├── Set1_Logistics/         (advanced_reports.sql, join_choice_table.md, notes/)
+    ├── Set2_BankLoan/          (advanced_reports.sql, justification.md, notes/)
+    └── Set3_RetailReturns/     (advanced_reports.sql, explanation.md, notes/)
 ```
 
-## Topics covered
+## Day-wise overview
 
-**Day 1**
+| Day | Topic | Sets / Contents | Key Deliverables |
+|---|---|---|---|
+| Day 1 | DSA fundamentals | RetailOrderDesk, BankingTransactions, HospitalAppointments | `src/*.java`, `output/console_output.txt`, `notes/Complexity_Note.md` |
+| Day 2 | Data structures & algorithms | Ecommerce, Insurance, Logistics | BST, hash table/map, graph, sliding window, two pointers (`src/`, `output/`, `notes/`) |
+| Day 3 | Agile & Scrum | E-commerce (5 roles), Insurance, Bug tracking & release | Role responsibilities, backlog, sprint plan, DoR/DoD, challenge responses (`docs/`) |
+| Day 4 | Practice tasks | Java exercises | `src/`, `output/`, `notes/` |
+| Day 5 | Databases, normalisation & DDL/DML | RetailInventory, BankBranch, HospitalRecords | `schema.sql`, `seed_data.sql`, failing-insert evidence, normalisation & ER notes, console evidence |
+| Day 6 | Functions, aggregation & joins | RetailSales, Insurance, Telecom | `reports.sql`, `expected_output.md`, function/NULL/WHERE vs HAVING demos, notes |
+| Day 7 | Joins & subqueries | Logistics, BankLoan, RetailReturns | `advanced_reports.sql`, join/subquery justifications, NOT IN vs NOT EXISTS, scaling notes |
 
-- Linear vs binary search and benchmarking
-- Bubble, insertion, selection, merge and quick sort (including stability)
+## Day details
+
+### Day 1 - DSA Fundamentals
+- Linear vs binary search, benchmarking
+- Bubble/insertion/selection/merge/quick sort (stability)
 - Duplicate detection with hash-based structures
-- Custom linked-node stack and queue vs `ArrayDeque`
-- Greedy vs dynamic programming (coin change), divide-and-conquer min/max, weighted-interval scheduling
+- Custom linked-node stack & queue vs `ArrayDeque`
+- Greedy vs DP, divide-and-conquer min/max, weighted-interval scheduling
 
-**Day 2**
-
-- Binary search trees and inorder/preorder/postorder traversals
+### Day 2 - Data Structures & Algorithms
+- Binary search trees and traversals
 - Hash tables with separate chaining vs `HashMap`
-- Graph modelling with adjacency lists, BFS, DFS, topological order and cycle detection
-- Sliding-window aggregation
-- Two-pointer pair search, merging and palindrome checks
+- Adjacency-list graphs, BFS/DFS, topological order, cycle detection
+- Sliding-window aggregation; two-pointer techniques
+
+### Day 3 - Agile & Scrum
+- Agile vs Waterfall (and why Waterfall fails for changing requirements)
+- Scrum roles, backlog, user stories & acceptance criteria, sprint planning
+- Definition of Ready / Definition of Done and mid-sprint change handling
+
+### Day 5 - Databases, Normalisation and Data Definition (MySQL 8.4)
+- 3NF/BCNF design, ER modelling, anomalies and keys
+- InnoDB schemas with PK/FK/UNIQUE/CHECK/DEFAULT and referential actions
+- DML with failing-constraint evidence, UPDATE/DELETE before/after, `information_schema` exploration
+- DROP vs TRUNCATE vs DELETE, ALTER TABLE effects, SQL vs NoSQL comparison
+
+### Day 6 - Functions, Aggregation, Grouping and Joins (MySQL 8.4)
+- String/date/math functions for reporting output
+- Aggregates with `GROUP BY`/`HAVING`, NULL behaviour (COUNT/SUM/AVG, IFNULL/COALESCE)
+- `WHERE` vs `HAVING`, INNER/LEFT/CROSS join usage
+
+### Day 7 - Joins and Subqueries (MySQL 8.4)
+- INNER/LEFT/RIGHT/SELF joins for business questions
+- Subqueries: IN, EXISTS, ANY, ALL, correlated/uncorrelated and nested
+- Rewriting subqueries as joins, NOT IN NULL pitfall vs NOT EXISTS
+- Performance/scaling considerations at higher data volumes
 
 ## Prerequisites
 
-- JDK 17 or newer (verified with JDK 25).
-- PowerShell 5.1 or newer for the example commands.
+- **Java (Day 1, 2, 4):** JDK 17+
+- **Database (Day 5, 6, 7):** MySQL 8.4+
 
-## Run one set
+## Run Java tasks
 
 ```powershell
 $set = "Day1\Set1_RetailOrderDesk"
@@ -96,43 +94,11 @@ javac -d "$set\out" (Get-ChildItem "$set\src\*.java" | ForEach-Object { $_.FullN
 java -cp "$set\out" Task1_Search
 ```
 
-## Run every task
+## Run SQL scripts (MySQL 8.4)
 
-From the repository root:
-
-```powershell
-$sets = @(
-    @{ Path = "Day1\Set1_RetailOrderDesk"; Classes = @("Task1_Search","Task2_Sorting","Task3_Duplicates","Task4_StackQueue","Task5_Refund") },
-    @{ Path = "Day1\Set2_BankingTransactions"; Classes = @("Task1_Search","Task2_Sorting","Task3_Duplicates","Task4_StackQueue","Task5_MinMax") },
-    @{ Path = "Day1\Set3_HospitalAppointments"; Classes = @("Task1_Search","Task2_Sorting","Task3_Duplicates","Task4_StackQueue","Task5_DP_Appointments") },
-    @{ Path = "Day2\Set1_Ecommerce"; Classes = @("Task1_BST","Task2_HashTable","Task3_Graph","Task4_SlidingWindow","Task5_TwoPointers") },
-    @{ Path = "Day2\Set2_Insurance"; Classes = @("Task1_BST","Task2_Hashing","Task3_Graph","Task4_SlidingWindow","Task5_TwoPointers") },
-    @{ Path = "Day2\Set3_Logistics"; Classes = @("Task1_BST","Task2_HashMap","Task3_Graph","Task4_SlidingWindow","Task5_TwoPointers") }
-)
-
-foreach ($set in $sets) {
-    $out = Join-Path $set.Path "out"
-    Remove-Item -Recurse -Force $out -ErrorAction SilentlyContinue
-    New-Item -ItemType Directory -Force -Path $out | Out-Null
-    $files = Get-ChildItem (Join-Path $set.Path "src\*.java") | ForEach-Object { $_.FullName }
-    javac -d $out $files
-    if (-not $?) { throw "Compilation failed for $($set.Path)" }
-    foreach ($class in $set.Classes) {
-        Write-Host "===== $($set.Path) :: $class ====="
-        java -cp $out $class
-    }
-}
+```sql
+SOURCE Day5/Set1_RetailInventory/schema.sql;
+SOURCE Day5/Set1_RetailInventory/seed_data.sql;
+-- Day 6/7: run reports after creating/loading the assumed sample tables
+SOURCE Day6/Set1_RetailSales/reports.sql;
 ```
-
-`out/` and `*.class` are ignored by Git.
-
-## Notes and outputs
-
-- Each set's `output/console_output.txt` contains the real captured console output.
-- Each set's `notes/Complexity_Note.md` contains the complexity table and rationale for every task.
-- Day 1 also preserves the original written solution at `Day1/notes/reference_solution.md`.
-
-## Notes on results
-
-- Test data is generated with fixed seeds, so values and checksums are reproducible.
-- Benchmark timings are machine-dependent and should be compared within a single run, not across machines.
