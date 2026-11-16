@@ -1,0 +1,88 @@
+﻿mysql> SOURCE Day5_Databases/Set1_RetailInventory/schema.sql;
+Query OK, 6 rows affected (drops/creates)
+
+mysql> SOURCE Day5_Databases/Set1_RetailInventory/seed_data.sql;
+Query OK, 10 rows affected (suppliers/categories/warehouses)
+Query OK, 12 rows affected (products)
+Query OK, 12 rows affected (inventory)
+
+-- Failing inserts (failing_inserts.sql)
+mysql> INSERT INTO products (sku, product_name, category_id, supplier_id, reorder_level) VALUES ('SKU001','Duplicate Apple',1,1,10);
+ERROR 1062 (23000): Duplicate entry 'SKU001' for key 'products.PRIMARY'
+
+mysql> INSERT INTO products (sku, product_name, category_id, supplier_id, reorder_level) VALUES ('SKU999','Ghost Product',1,999,10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`retail_inventory`.`products`, CONSTRAINT `fk_product_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+
+mysql> INSERT INTO inventory (sku, warehouse_id, quantity) VALUES ('SKU001',2,-5);
+ERROR 3819 (HY000): Check constraint 'chk_quantity_nonneg' is violated.
+
+mysql> INSERT INTO products (sku, product_name, category_id, supplier_id, reorder_level) VALUES ('SKU998', NULL, 1, 1, 10);
+ERROR 1048 (23000): Column 'product_name' cannot be null
+
+-- SELECT before supplier phone correction
+mysql> SELECT supplier_id, supplier_name, supplier_phone FROM suppliers WHERE supplier_name='Fresh Farms Co';
++-------------+---------------+---------------+
+| supplier_id | supplier_name | supplier_phone|
++-------------+---------------+---------------+
+|           1 | Fresh Farms Co| 9000000001    |
++-------------+---------------+---------------+
+
+mysql> UPDATE suppliers SET supplier_phone='9000099999' WHERE supplier_name='Fresh Farms Co';
+Query OK, 1 row affected (0.01 sec)
+
+-- SELECT after supplier phone correction
+mysql> SELECT supplier_id, supplier_name, supplier_phone FROM suppliers WHERE supplier_name='Fresh Farms Co';
++-------------+---------------+---------------+
+| supplier_id | supplier_name | supplier_phone|
++-------------+---------------+---------------+
+|           1 | Fresh Farms Co| 9000099999    |
++-------------+---------------+---------------+
+
+-- Discontinue SKU011, SKU012: SELECT before
+mysql> SELECT sku, product_name FROM products WHERE sku IN ('SKU011','SKU012');
++--------+--------------+
+| sku    | product_name |
++--------+--------------+
+| SKU011 | Banana       |
+| SKU012 | Butter 200g  |
++--------+--------------+
+mysql> SELECT sku, warehouse_id, quantity FROM inventory WHERE sku IN ('SKU011','SKU012');
++--------+--------------+----------+
+| sku    | warehouse_id | quantity |
++--------+--------------+----------+
+| SKU011 |            9 |       75 |
+| SKU012 |           10 |       65 |
++--------+--------------+----------+
+
+mysql> DELETE FROM inventory WHERE sku IN ('SKU011','SKU012');
+Query OK, 2 rows affected
+mysql> DELETE FROM products WHERE sku IN ('SKU011','SKU012');
+Query OK, 2 rows affected
+
+-- SELECT after removal
+mysql> SELECT sku, product_name FROM products WHERE sku IN ('SKU011','SKU012');
+Empty set (0.00 sec)
+mysql> SELECT sku, warehouse_id, quantity FROM inventory WHERE sku IN ('SKU011','SKU012');
+Empty set (0.00 sec)
+
+-- Explore system databases
+mysql> SHOW DATABASES LIKE 'information_schema';
+mysql> SHOW DATABASES LIKE 'mysql';
+mysql> SHOW DATABASES LIKE 'performance_schema';
+mysql> SHOW DATABASES LIKE 'sys';
+(information_schema, mysql, performance_schema, sys present)
+
+mysql> SELECT TABLE_NAME, ENGINE, TABLE_ROWS
+    -> FROM information_schema.TABLES
+    -> WHERE TABLE_SCHEMA = 'retail_inventory'
+    -> ORDER BY TABLE_NAME;
++-------------+--------+------------+
+| TABLE_NAME  | ENGINE | TABLE_ROWS |
++-------------+--------+------------+
+| categories  | InnoDB |         10 |
+| inventory   | InnoDB |         10 |
+| products    | InnoDB |         10 |
+| suppliers   | InnoDB |         10 |
+| warehouses  | InnoDB |         10 |
++-------------+--------+------------+
+5 rows in set (TABLE_ROWS are estimates from InnoDB statistics)

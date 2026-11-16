@@ -1,0 +1,56 @@
+﻿mysql> SOURCE Day5_Databases/Set3_HospitalRecords/schema.sql;
+mysql> SOURCE Day5_Databases/Set3_HospitalRecords/seed_data.sql;
+Query OK (departments/doctors/patients/visits/billing inserted)
+
+-- Create a user-defined database, rename a table, drop and recreate a database
+mysql> CREATE DATABASE hospital_admin_demo;
+Query OK, 1 row affected
+mysql> USE hospital_admin_demo;
+mysql> CREATE TABLE staff_notes (id INT PRIMARY KEY, note VARCHAR(100)) ENGINE=InnoDB;
+mysql> RENAME TABLE staff_notes TO staff_notes_archive;
+Query OK, 0 rows affected (table renamed within database)
+mysql> DROP DATABASE hospital_admin_demo;
+Query OK (database and its tables removed)
+mysql> CREATE DATABASE hospital_admin_demo;
+Query OK, 1 row affected (recreated empty database)
+-- Effect on files (MySQL 8.4/InnoDB): CREATE DATABASE creates a directory in datadir; CREATE TABLE creates .ibd (file-per-table) and metadata in data dictionary; RENAME updates metadata/names; DROP DATABASE removes the schema directory and contained InnoDB tablespace files; recreate yields a new empty schema directory.
+
+mysql> USE hospital_records;
+
+-- Retrieve patients visited in a given month (e.g. October 2026)
+mysql> SELECT p.patient_id, p.full_name, v.visit_date, v.diagnosis
+    -> FROM patients p JOIN visits v ON p.patient_id = v.patient_id
+    -> WHERE DATE_FORMAT(v.visit_date,'%Y-%m') = '2026-10'
+    -> ORDER BY v.visit_date;
++------------+--------------+------------+--------------+
+| patient_id | full_name    | visit_date | diagnosis    |
++------------+--------------+------------+--------------+
+|          3 | Arun Kumar   | 2026-10-02 | Migraine     |
+|          4 | Meena Joshi  | 2026-10-10 | Fracture     |
+|          5 | Karan Patel  | 2026-10-15 | Flu          |
+|          9 | Nitin Shah   | 2026-10-28 | Consultation |
++------------+--------------+------------+--------------+
+
+-- Doctors by department
+mysql> SELECT d.dept_name, doc.doctor_id, doc.doctor_name
+    -> FROM doctors doc JOIN departments d ON doc.department_id = d.department_id
+    -> ORDER BY d.dept_name, doc.doctor_name;
++------------------+-----------+----------------+
+| dept_name        | doctor_id | doctor_name    |
++------------------+-----------+----------------+
+| Cardiology       |         1 | Dr. Asha Mehta |
+| Dermatology      |         5 | Dr. Neha Kapoor|
+| ENT              |         7 | Dr. Priti Shah |
+| General Medicine |         6 | Dr. Arvind Jain|
+| Gynecology       |         9 | Dr. Leena Paul |
+| Neurology        |         2 | Dr. Rohan Das  |
+| Oncology         |         8 | Dr. Manoj Nair |
+| Orthopedics      |         3 | Dr. Kavita Rao |
+| Pediatrics       |         4 | Dr. Sunil Iyer |
+| Urology          |        10 | Dr. Vivek Sen  |
++------------------+-----------+----------------+
+
+-- Sample insert/update/delete
+mysql> INSERT INTO patients (full_name,address,phone,dob) VALUES ('Test Patient','Test City','9800000099','1999-01-01');
+mysql> UPDATE billing SET bill_status='PAID' WHERE bill_id=2 AND bill_status='OPEN';
+mysql> DELETE FROM billing WHERE visit_id IN (SELECT visit_id FROM visits WHERE diagnosis='Consultation' AND 1=0); -- (safe example pattern)

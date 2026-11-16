@@ -1,0 +1,64 @@
+﻿mysql> SOURCE Day5_Databases/Set2_BankBranch/schema.sql;
+Query OK
+
+mysql> SOURCE Day5_Databases/Set2_BankBranch/seed_data.sql;
+Query OK, 10 rows affected (branches) / 10 (rms) / 12 (customers) / 12 (accounts)
+
+-- DROP vs TRUNCATE vs DELETE (test table) and AUTO_INCREMENT/rollback effects
+mysql> CREATE TABLE ai_test (id INT AUTO_INCREMENT PRIMARY KEY, note VARCHAR(20)) ENGINE=InnoDB;
+mysql> INSERT INTO ai_test (note) VALUES ('a'),('b'),('c'); -- ids 1,2,3
+mysql> START TRANSACTION;
+mysql> DELETE FROM ai_test; -- DML, row-by-row, logs rows
+mysql> ROLLBACK;
+mysql> SELECT COUNT(*) AS cnt, MAX(id) AS max_id FROM ai_test;
++-----+--------+
+| cnt | max_id |
++-----+--------+
+|   3 |      3 |
++-----+--------+
+-- DELETE can be rolled back (within transaction) and does NOT reset AUTO_INCREMENT (next id would be 4).
+
+mysql> TRUNCATE TABLE ai_test; -- DDL-like, drops/recreates storage
+mysql> INSERT INTO ai_test (note) VALUES ('x');
+mysql> SELECT id FROM ai_test;
++----+
+| id |
++----+
+|  1 |
++----+
+-- TRUNCATE resets AUTO_INCREMENT counter; implicit commit in MySQL (cannot be rolled back as row restore).
+
+mysql> DROP TABLE ai_test;
+-- DROP removes table definition and data entirely (and its AUTO_INCREMENT metadata).
+
+-- Queries (AND, OR, IN, BETWEEN, LIKE): accounts opened in last quarter with balance above threshold
+-- (assuming last quarter relative to 2026-11-16 => Jul-Sep 2026, threshold 50000)
+mysql> SELECT a.account_number, c.full_name, b.branch_name, a.account_type, a.balance, a.opened_date
+    -> FROM accounts a
+    -> JOIN customers c ON a.customer_id = c.customer_id
+    -> JOIN branches b ON a.branch_id = b.branch_id
+    -> WHERE a.opened_date BETWEEN '2026-07-01' AND '2026-09-30'
+    ->   AND a.balance >= 50000.00
+    ->   AND a.account_type IN ('SAVINGS','CURRENT','SALARY','FD')
+    ->   AND (c.full_name LIKE 'R%' OR b.city IN ('Mumbai','Delhi','Bengaluru','Hyderabad'));
++----------------+------------+-------------+--------------+-----------+-------------+
+| account_number | full_name  | branch_name | account_type | balance   | opened_date |
++----------------+------------+-------------+--------------+-----------+-------------+
+| ACC1001        | Ravi Kumar | Main Branch | SAVINGS      |  75000.00 | 2026-08-10  |
+| ACC1002        | Priya Sharma| City Center| CURRENT      | 150000.00 | 2026-07-15  |
+| ACC1005        | Suresh Patil| Lakeside   | FD           | 300000.00 | 2026-08-25  |
+| ACC1007        | Imran Ali  | Greenfield  | SAVINGS      |  61000.00 | 2026-09-18  |
+| ACC1011        | Mohan Lal  | Main Branch | CURRENT      |  82000.00 | 2026-08-05  |
++----------------+------------+-------------+--------------+-----------+-------------+
+
+-- ALTER TABLE effects
+mysql> ALTER TABLE customers ADD COLUMN kyc_status VARCHAR(20) NOT NULL DEFAULT 'PENDING';
+Query OK, 0 rows affected (adds column; existing rows get DEFAULT 'PENDING')
+
+mysql> RENAME TABLE relationship_managers TO rm_staff;
+Query OK, 0 rows affected (table name changed; dependent FKs updated to reference new name in MySQL 8)
+
+mysql> ALTER TABLE accounts DROP CHECK chk_account_type;
+Query OK, 0 rows affected (check constraint removed; future inserts no longer validated by that rule)
+
+Documented: ADD COLUMN populates default for existing rows; RENAME TABLE changes identifier; DROP CONSTRAINT removes enforcement (see ER/notes for details).
