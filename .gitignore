@@ -18,3 +18,6 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Local assignment question documents (not part of the solution repo)
+Java and MYSQL Assignments- Day wise/

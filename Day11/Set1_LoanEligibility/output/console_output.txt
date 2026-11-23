@@ -1,0 +1,15 @@
+DAY 11 SET 1 - LOAN ELIGIBILITY DECISION TABLE
+ID       VERDICT        REASON                                              EMI     RATE % PRODUCT           
+--------------------------------------------------------------------------------------------------------------
+L001     INVALID        Age must be between 0 and 100                      0.00       0.00 -                 
+L002     INVALID        Income must be positive                            0.00       0.00 -                 
+L003     INVALID        Credit score out of range                          0.00       0.00 -                 
+L004     APPROVED       Rule 6: all rules satisfied                     9470.26       8.50 Prime Personal    
+L005     APPROVED       Rule 6: all rules satisfied                     9252.08      10.25 Standard Personal 
+L006     APPROVED       Rule 6: all rules satisfied                    11699.03      14.25 Care Extended     
+L007     NOT_PROCESSED  Daily approval limit reached                       0.00       0.00 -                 
+L008     NOT_PROCESSED  Daily approval limit reached                       0.00       0.00 -                 
+L009     NOT_PROCESSED  Daily approval limit reached                       0.00       0.00 -                 
+L010     NOT_PROCESSED  Daily approval limit reached                       0.00       0.00 -                 
+
+Approvals: 3/3
